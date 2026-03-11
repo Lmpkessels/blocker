@@ -1,19 +1,44 @@
-use std::fs::File;
-use std::io::Read;
+use std::fs::{ File, OpenOptions };
+use std::io::{ Read, Write };
+use std::str;
 
-fn list_websites() {
+fn list_domains() {
     // Read a /etc/hosts from the local file system
-    let mut blocked_websites = File::open("/etc/hosts").unwrap();
+    let mut blocked_domain = File::open("/etc/hosts").unwrap();
     
     // Create a empty mutable string to copy contents of /etc/hosts to
-    let mut file_content = String::new();
+    let mut domain = String::new();
     
     // Copy contents of /etc/hosts to mutable string
-    blocked_websites.read_to_string(&mut file_content).unwrap();
+    blocked_domain.read_to_string(&mut domain).unwrap();
 
-    println!("{}", file_content);
+    println!("{}", domain);
+}
+
+fn add_domain(domain: &str) {
+    // Give the privaliges to append data to the right file, and raise an
+    // error if appending is not possible
+    let mut blocked_domains = OpenOptions::new()
+        .append(true)
+        .open("data.txt")
+        .expect("Cannot open file");
+
+    // Concatenate the string into the right string order
+    let formated_domain = format!(
+        "\n127.0.0.1 {}\n127.0.0.1 {}.com",
+        domain,
+        domain
+    );
+
+    // Write the domain to the file
+    blocked_domains
+        .write_all(formated_domain.as_bytes())
+        .expect("Writing to /etc/hosts failed");    
+
+    println!("Appended content to a file");
 }
 
 fn main() {
-    list_websites();
+    list_domains();
+    add_domain("amazon");
 }
