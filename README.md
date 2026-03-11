@@ -3,14 +3,24 @@
 ![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)
 ![Built with Rust](https://img.shields.io/badge/Built%20with-Rust-red.svg)
 
-Is a CLI website blocker written in Rust to remain focus for a given time of choice.
+Is a CLI website blocker written in Rust to remain focus for a given time of choice on a Linux OS.
 
 ## Installation
 
+Make sure Rust is installed else follow the guide []().
+
 ```bash
+git clone
+cd blocker
+cargo run
 ```
 
+In the future I'll be adding a clear description when it's done.
+
 ## Contribution
+
+Pull requests are welcome. For major changes, please open an issue first
+to discuss what you would like to change.
 
 ## License
 
