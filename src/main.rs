@@ -51,6 +51,21 @@ fn add_domain(domain: &str) {
     println!("Appended content to a file");
 }
 
+// Remove domain, deletes the domain given as the argument to the parameter
+fn remove_domain(domain: &str) {
+    let content = fs::read_to_string(HOSTS_PATH).unwrap();
+
+    // Create a new file of content without the domain given to remove
+    let new_content: String = content
+        .lines()
+        .filter(|line| !line.contains(domain))
+        .map(|line| format!("{line}\n"))
+        .collect();
+
+    // Write to file
+    fs::write(HOSTS_PATH, new_content).unwrap();
+}
+
 // Unblock domains through typing 500 keystrokes
 //
 // The keystrokes will be received after pressing enter, then a count takes
@@ -110,16 +125,13 @@ fn block_domains(time: u64, unit: Unit) {
     fs::set_permissions(HOSTS_PATH, unwritable).unwrap(); // Set permission to
                                                           // read write
 
-    // Run the timer
-    sleep(Duration::from_secs(time_to_block));
+    sleep(Duration::from_secs(time_to_block)); // Run the timer
 
     fs::set_permissions(HOSTS_PATH, writable).unwrap();   // Set permision to 
                                                           // write only
 }
 
 fn main() {
-    // list_domains();
-    // add_domain("test");
-    // unblock_domains();
-    block_domains(1, Unit::Minutes);
+    add_domain("test");
+    remove_domain("test");
 }
