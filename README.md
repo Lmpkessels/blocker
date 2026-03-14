@@ -68,7 +68,3 @@ to discuss what you would like to change.
 
 Licensed under [MIT License](./LICENSE-MIT). <br/>
 © 2026 Luuk Kessels
-
-```
-
-```
