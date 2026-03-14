@@ -1,1 +1,1 @@
-pub const HOSTS_PATH: &str = "data.txt"; // The path to write domains towards
+pub const HOSTS_PATH: &str = "/etc/hosts"; // The path to write domains towards
