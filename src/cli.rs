@@ -1,0 +1,41 @@
+use blocker::{ 
+    Unit, add_domain, block_domains, remove_domain, list_domains, 
+    unblock_domains
+};
+use clap::{ Parser, Subcommand, CommandFactory };
+
+#[derive(Parser)]
+#[command(name = "blocker")]
+#[command(about = "Block distracting domains by editing /etc/hosts")]
+struct Cli {
+    #[command(subcommand)]
+    command: Commands,
+}
+
+#[derive(Subcommand)]
+enum Commands {
+    Add {
+        domain: String,
+    },
+    Block {
+        time: u64,
+        unit: Unit,
+    },
+    Remove {
+        domain: String,
+    },
+    List,
+    Unblock
+}
+
+impl Commands {
+    pub fn run(self) {
+        match self {
+            Commands::Add { domain } => add_domain(&domain),
+            Commands::Block { time, unit } => block_domains(time, unit),
+            Commands::Remove { domain } => remove_domain(&domain),
+            Commands::List => list_domains(),
+            Commands::Unblock => unblock_domains(),
+        }
+    }
+}

@@ -3,10 +3,12 @@ use std::time::Duration;
 use std::thread::sleep;
 use std::os::unix::fs::PermissionsExt;
 use crate::constants::HOSTS_PATH;
+use clap::ValueEnum;
 
+#[derive(Debug, Clone, ValueEnum)]
 pub enum Unit {
-    Minutes,
-    Hours
+    Min,
+    Hour
 }
 
 // Block domains asks for a time in minutes or hours depending on user input,
@@ -14,8 +16,8 @@ pub enum Unit {
 // timer has run out of time the file becomes writable again.
 pub fn block_domains(time: u64, unit: Unit) {
     let time_to_block = match unit {
-        Unit::Minutes => time * 60,
-        Unit::Hours => time * 60 * 60,
+        Unit::Min => time * 60,
+        Unit::Hour => time * 60 * 60,
     };
 
     if time_to_block == 0 {
