@@ -28,7 +28,9 @@ It modifies `/etc/hosts` to block distracting domains for a chosen amount of tim
    ```
 
 3. Copy the binary
+   ```bash
    sudo cp -f target/release/blocker /usr/local/bin/blocker
+   ```
 
 ## Usage
 
