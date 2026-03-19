@@ -1,8 +1,12 @@
-use std::{thread, time::Duration};
-use crate::state::{save, load, now, State};
+use std::{time::Duration};
 use crate::hosts::{apply_block, clean_block};
 use crate::permissions::{lock, unlock};
 use clap::ValueEnum;
+use crossterm::event::{ read, Event, KeyCode };
+use crossterm::terminal::{enable_raw_mode, disable_raw_mode};
+use std::io::Write;
+
+const PASSPHRASE_LEN: u16 = 10000;
 
 #[derive(Debug, Clone, ValueEnum)]
 pub enum Unit {
@@ -19,41 +23,8 @@ pub fn set_block(amount: u64, unit: Unit) {
     apply_block();
     lock();
 
-    let state = State {
-        blocked: true,
-        end: now() + seconds,
-    };
-    save(&state);
-}
+    std::thread::sleep(Duration::from_secs(seconds));
 
-pub fn set_unblock() {
-    let state = State {
-        blocked: false,
-        end: 0,
-    };
-    save(&state);
-}
-
-pub fn daemon() {
-    loop {
-        enforce();
-        thread::sleep(Duration::from_secs(2));
-    }
-}
-
-fn enforce() {
-    if let Some(state) = load() {
-        if state.blocked && now() < state.end {
-            apply_block();
-            lock();
-        } else {
-            clean_block();
-            unlock();
-
-            save(&State {
-                blocked: false,
-                end: 0,
-            });
-        }
-    }
+    unlock();
+    clean_block();
 }
