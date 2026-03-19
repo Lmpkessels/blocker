@@ -28,3 +28,36 @@ pub fn set_block(amount: u64, unit: Unit) {
     unlock();
     clean_block();
 }
+
+pub fn set_unblock() {
+    println!("Type {} keystrokes to unblock...", PASSPHRASE_LEN);
+
+    enable_raw_mode().unwrap();
+
+    let mut count = 0;
+
+    loop {
+        if let Event::Key(event) = read().unwrap() {
+            match event.code {
+                KeyCode::Enter => {}
+                KeyCode::Char(_) => {
+                    count += 1;
+                    print!("\rProgress: {}/{}", count, PASSPHRASE_LEN);
+                    std::io::stdout().flush().unwrap();
+                }
+                _ => {}
+            }
+        }
+
+        if count >= PASSPHRASE_LEN {
+            println!("Unblocked");
+
+            disable_raw_mode().unwrap();
+
+            unlock();
+            clean_block();
+
+            break;
+        }
+    }
+}
