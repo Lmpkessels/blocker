@@ -117,9 +117,9 @@ Licensed under [MIT License](./LICENSE-MIT). <br/>
 <details>
   <summary>Contact</summary>
   <ul>
-      <li><a href="mailto:l@lmpkessels.com"></a>e-mail</li>
-      <li><a href="">https://x.com/lmpkessels</a>X/Twitter</li>
-      <li><a href="www.linkedin.com/in/lmpkessels"></a>LinkedIn</li>
-      <li><a href="https://github.com/Lmpkessels"></a>GitHub</li>
+      <li><a href="mailto:l@lmpkessels.com">e-mail</a></li>
+      <li><a href="https://x.com/lmpkessels">X/Twitter</a></li>
+      <li><a href="www.linkedin.com/in/lmpkessels">LinkedIn</a></li>
+      <li><a href="https://github.com/Lmpkessels">GitHub</a></li>
   </ul>
 </details>
