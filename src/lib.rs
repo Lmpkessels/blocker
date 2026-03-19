@@ -4,7 +4,7 @@ pub mod hosts;
 pub mod permissions;
 pub mod state;
 
-pub use blocker::{set_block, set_unblock, daemon};
+pub use blocker::{Unit, set_block, set_unblock, daemon};
 pub use hosts::{
     add_domain, remove_domain, list_domains, apply_block, clean_block
 };

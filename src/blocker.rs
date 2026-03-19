@@ -3,10 +3,22 @@ use crate::state::{save, load, now, State};
 use crate::hosts::{apply_block, clean_block};
 use std::fs;
 use std::os::unix::fs::PermissionsExt;
+use clap::ValueEnum;
 
 const HOSTS: &str = "/etc/hosts";
 
-pub fn set_block(seconds: u64) {
+#[derive(Debug, Clone, ValueEnum)]
+pub enum Unit {
+    Min,
+    Hour,
+}
+
+pub fn set_block(amount: u64, unit: Unit) {
+    let seconds = match unit {
+        Unit::Min => amount * 60,
+        Unit::Hour => amount * 60 * 60,
+    };
+
     let state = State {
         blocked: true,
         end: now() + seconds,
