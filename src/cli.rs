@@ -24,6 +24,9 @@ enum Commands {
     Unblock,
 }
 
+/// Manages the functionallity for the commands used in the program.
+///
+/// When a command is run it gets matched and the function for it is executed.
 impl Cli {
     pub fn run(self) {
         match self.command {
