@@ -6,7 +6,7 @@ use crossterm::event::{ read, Event, KeyCode };
 use crossterm::terminal::{enable_raw_mode, disable_raw_mode};
 use std::io::Write;
 
-const PASSPHRASE_LEN: u16 = 10000;
+const PASSPHRASE_LEN: u16 = 1000;
 
 #[derive(Debug, Clone, ValueEnum)]
 pub enum Unit {
@@ -39,7 +39,7 @@ pub fn set_block(amount: u64, unit: Unit) {
 
 /// Set unblock
 ///
-/// Will unblock /etc/hosts after receiving a 10000 keystroke input
+/// Will unblock /etc/hosts after receiving a 1000 keystroke input
 pub fn set_unblock() {
     println!("Type {} keystrokes to unblock...", PASSPHRASE_LEN);
 
