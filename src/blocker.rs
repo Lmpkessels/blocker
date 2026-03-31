@@ -23,17 +23,17 @@ pub fn set_block(amount: u64, unit: Unit) {
         Unit::Hour => amount * 60 * 60,
     };
 
-    /// Write to /etc/hosts
+    // Write to /etc/hosts
     apply_block();
-    /// Change the mode to read only
+    // Change the mode to read only
     lock();
 
-    /// Activate the time to block
+    // Activate the time to block
     std::thread::sleep(Duration::from_secs(seconds));
 
-    /// Change the mode to read/write
+    // Change the mode to read/write
     unlock();
-    /// Clean /etc/hosts
+    // Clean /etc/hosts
     clean_block();
 }
 
@@ -48,7 +48,7 @@ pub fn set_unblock() {
     let mut count = 0;
 
     loop {
-        /// Receive keystrokes and show the count
+        // Receive keystrokes and show the count
         if let Event::Key(event) = read().unwrap() {
             match event.code {
                 KeyCode::Enter => {}
@@ -61,15 +61,15 @@ pub fn set_unblock() {
             }
         }
 
-        /// When count is greater the or equal to passphrase lenght
+        // When count is greater the or equal to passphrase lenght
         if count >= PASSPHRASE_LEN {
             println!("Unblocked");
 
             disable_raw_mode().unwrap();
 
-            /// Change mode to read/write
+            // Change mode to read/write
             unlock();
-            /// Clean /etc/hosts
+            // Clean /etc/hosts
             clean_block();
 
             break;

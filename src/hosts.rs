@@ -44,8 +44,8 @@ pub fn apply_block() {
 
     base.push_str("# BLOCKER END\n");
 
-    /// Use a temporary file thats renamed to make sure /etc/hosts is
-    /// always in a fully written state
+    // Use a temporary file thats renamed to make sure /etc/hosts is
+    // always in a fully written state
     write_atomic(&base);
 }
 
@@ -68,7 +68,7 @@ fn load_domains() -> Vec<String> {
 
 /// Write the domains in domains.txt
 fn save_domains(domains: &Vec<String>) {
-    /// When /etc/blocker doesn't exist create it
+    // When /etc/blocker doesn't exist create it
     fs::create_dir_all("/etc/blocker").ok();
     let data = domains.join("\n");
     fs::write(DOMAINS, data).unwrap();
